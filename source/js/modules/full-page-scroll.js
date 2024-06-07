@@ -8,10 +8,14 @@ export default class FullPageScroll {
 
     this.screenElements = document.querySelectorAll(`.screen:not(.screen--result)`);
     this.menuElements = document.querySelectorAll(`.page-header__menu .js-menu-link`);
+    this.backgroundScreenElement = document.getElementById('backgroundScreen');
 
     this.activeScreen = 0;
+    this.prevScreen = null;
     this.onScrollHandler = this.onScroll.bind(this);
     this.onUrlHashChengedHandler = this.onUrlHashChanged.bind(this);
+
+    this.SCREENS_WITH_BACKGROUND = ['prizes', 'rules', 'game'];
   }
 
   init() {
@@ -39,7 +43,10 @@ export default class FullPageScroll {
     }, this.THROTTLE_TIMEOUT);
   }
 
-  onUrlHashChanged() {
+  onUrlHashChanged(event) {
+    if (event) {
+      this.prevScreen = this.activeScreen;
+    }
     const newIndex = Array.from(this.screenElements).findIndex((screen) => location.hash.slice(1) === screen.id);
     this.activeScreen = (newIndex < 0) ? 0 : newIndex;
     this.changePageDisplay();
@@ -52,14 +59,31 @@ export default class FullPageScroll {
   }
 
   changeVisibilityDisplay() {
-    this.screenElements.forEach((screen) => {
-      screen.classList.add(`screen--hidden`);
-      screen.classList.remove(`active`);
-    });
-    this.screenElements[this.activeScreen].classList.remove(`screen--hidden`);
+    let applyDelay = 0;
+    if (this.checkBackgroundAnimateNeed()) {
+      this.backgroundScreenElement.classList.add('active');
+      applyDelay = 500;
+    } else if (!this.screenNeedBackground(this.activeScreen)) {
+      this.backgroundScreenElement.classList.remove('active');
+    }
     setTimeout(() => {
-      this.screenElements[this.activeScreen].classList.add(`active`);
-    }, 100);
+      this.screenElements.forEach((screen) => {
+        screen.classList.add(`screen--hidden`);
+        screen.classList.remove(`active`);
+      });
+      this.screenElements[this.activeScreen].classList.remove(`screen--hidden`);
+      setTimeout(() => {
+        this.screenElements[this.activeScreen].classList.add(`active`);
+      }, 100);
+    }, applyDelay);
+  }
+
+  screenNeedBackground(screenIndex) {
+    return this.SCREENS_WITH_BACKGROUND.includes(this.screenElements[screenIndex].id);
+  }
+
+  checkBackgroundAnimateNeed() {
+    return this.prevScreen !== null && this.screenNeedBackground(this.activeScreen) && !this.screenNeedBackground(this.prevScreen);
   }
 
   changeActiveMenuItem() {
