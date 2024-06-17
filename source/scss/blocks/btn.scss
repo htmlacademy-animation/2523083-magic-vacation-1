@@ -66,3 +66,34 @@
     }
   }
 }
+
+.animate__btn {
+  color: transparent;
+  animation-name: show-btn-text;
+  animation-duration: $btn-text-animation-duration;
+  animation-fill-mode: forwards;
+  animation-delay: $btn-animation-duration;
+
+  &:before {
+    width: 0;
+    border: none;
+    animation-name: show-btn;
+    animation-duration: $btn-animation-duration;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes show-btn {
+  from {
+    width: 6rem;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes show-btn-text {
+  to {
+    color: $c-dark;
+  }
+}

@@ -58,3 +58,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+@mixin right {
+  position: absolute;
+  top: 50%;
+  left: auto;
+  right: 0;
+  transform: translate(0, -50%);
+}
