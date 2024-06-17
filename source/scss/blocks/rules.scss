@@ -1,3 +1,16 @@
+$counter-animation-duration: 0.3s;
+$counter-number-animation-duration: 0.4s;
+$text-animation-duration: 0.5s;
+$rules-btn-delay: 1s;
+
+@function counter-animation-delay($i) {
+  @return ($i - 1) * $counter-animation-duration;
+}
+
+@function text-animation-delay($i) {
+  @return counter-animation-delay($i + 1) - 0.1s;
+}
+
 .rules {
   position: relative;
   flex-grow: 1;
@@ -155,10 +168,16 @@
     font-family: $font-alt;
     font-weight: 400;
     font-size: 2.4rem;
+    color: transparent;
     background-color: $c-purple;
     border-radius: 50%;
     line-height: 5rem;
     text-align: center;
+    transform: scale(0);
+    animation-name: show-rule-counter, show-rule-counter-number;
+    animation-duration: $counter-animation-duration, $counter-number-animation-duration;
+    animation-fill-mode: forwards, forwards;
+    animation-timing-function: cubic-bezier(0.17, 0.67, 0.49, 1.31), ease;
 
     @media (max-width: $tablet) and (orientation: portrait) {
       top: 1rem;
@@ -179,9 +198,48 @@
 
   p {
     margin: 0;
+    opacity: 0;
+    animation-name: show-rule-text;
+    animation-duration: $btn-animation-duration;
+    animation-fill-mode: forwards;
 
     @media (max-width: $tablet) and (orientation: portrait) {
       min-height: calc(1.4rem * 2.2);
+    }
+  }
+
+  &:nth-of-type(1) {
+    p {
+      animation-delay: text-animation-delay(1);
+    }
+  }
+
+  &:nth-of-type(2) {
+    &::before {
+      animation-delay: counter-animation-delay(2);
+    }
+    p {
+      animation-delay: text-animation-delay(2);
+    }
+  }
+
+  
+  &:nth-of-type(3) {
+    &::before {
+      animation-delay: counter-animation-delay(3);
+    }
+    p {
+      animation-delay: text-animation-delay(3);
+    }
+  }
+
+  
+  &:nth-of-type(4) {
+    &::before {
+      animation-delay: counter-animation-delay(4);
+    }
+    p {
+      animation-delay: text-animation-delay(4);
     }
   }
 }
@@ -209,5 +267,41 @@
   @media (max-width: $mobile) and (orientation: landscape) {
     bottom: 2rem;
     right: 1.5rem;
+  }
+
+  &.animate__btn {
+    animation-delay: sum($rules-btn-delay, $btn-animation-duration);
+
+    &:before {
+      @include right;
+      animation-delay: $rules-btn-delay;
+    }
+  }
+}
+
+
+@keyframes show-rule-counter {
+  to { 
+    transform: scale(1);
+  }
+}
+
+@keyframes show-rule-counter-number {
+  40% {
+    color: transparent;
+  }
+  to { 
+    color: $c-light;
+  }
+}
+
+@keyframes show-rule-text {
+  from {
+    opacity: 0;
+    transform: translateX(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
