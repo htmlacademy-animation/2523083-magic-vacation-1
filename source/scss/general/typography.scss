@@ -1,0 +1,20 @@
+.accent-typography {
+  & > span {
+    clip-path: inset(-0.2em -0.2em 0.2em 0);
+    & > span {
+      display: inline-block;
+      min-width: 0.2em;
+      transform: translate3d(0, 1em, 0);
+      animation-name: fadeInUp-symbol;
+      animation-duration: 0.5s;
+      animation-fill-mode: forwards;
+    }
+  }
+}
+
+
+@keyframes fadeInUp-symbol {
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
