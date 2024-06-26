@@ -82,7 +82,7 @@
     <section class="screen screen--hidden screen--intro" id="top">
       <div class="screen__wrapper">
         <div class="intro">
-          <h1 class="intro__title">Таинственный отпуск</h1>
+          <h1 class="intro__title">Таинственный<br>отпуск</h1>
           <div class="intro__content">
             <div class="intro__info">
               <p class="intro__label">Даты проведения конкурса:</p>
@@ -401,10 +401,13 @@
       <div class="screen__wrapper">
         <div class="result result--prize">
           <div class="result__image">
-            <picture>
-              <source srcset="img/result2-mob.png 1x, img/result2-mob@2x.png 2x" media="(max-width: 768px) and (orientation: portrait)">
-              <img src="img/result2.png" srcset="img/result2@2x.png 2x" alt="">
-            </picture>
+            <img src="img/result2/leaf_blue_1.png" alt="" class="result__image--leaf1">
+            <img src="img/result2/leaf_blue_2.png" alt="" class="result__image--leaf2">
+            <img src="img/result2/leaf_green.png" alt="" class="result__image--leaf3">
+            <div class="suitcase__wrapper">
+              <img src="img/result2/suitcase.png" alt="" class="result__image--suitcase">
+            </div>
+            <img src="img/result2/flamingo.png" alt="" class="result__image--flamingo">
           </div>
           <h2 class="result__title">
             <span class="visually-hidden">ПОбеда!</span>
@@ -439,7 +442,7 @@
                 <input type="email" class="form__field" id="email-field2" placeholder="e-mail для регистации результата и получения приза" required>
               </div>
               <button class="form__button btn">
-                отправить
+                <span class="form__button--text">отправить</span>
                 <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path stroke="currentColor" stroke-width="2" d="M9 19V1"/>
                   <path d="M1 9l8-8 8 8" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
