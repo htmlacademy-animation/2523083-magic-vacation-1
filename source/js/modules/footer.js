@@ -6,7 +6,11 @@ export default () => {
       footerTogglers[i].addEventListener(`click`, function () {
         let footer = footerTogglers[i].parentNode;
         if (footer.classList.contains(`screen__footer--full`)) {
-          footer.classList.remove(`screen__footer--full`);
+          footer.classList.add(`screen__footer--before-hide`);
+          setTimeout(() => {
+            footer.classList.remove(`screen__footer--full`);
+            footer.classList.remove(`screen__footer--before-hide`);
+          }, 900);
         } else {
           footer.classList.add(`screen__footer--full`);
         }

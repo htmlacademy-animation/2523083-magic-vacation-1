@@ -481,7 +481,22 @@
         animation-fill-mode: forwards;
       }
     }
+
+    .result--negative {
+      .result__button {
+        opacity: 0;
+        animation-name: fadeIn;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+      }
+    }
   }
+}
+
+.repeat-icon {
+  animation-name: rollInRight;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes fadeIn-field {

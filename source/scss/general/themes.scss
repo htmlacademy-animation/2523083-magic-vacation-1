@@ -1,0 +1,19 @@
+:root {
+  --menu-base-color: #{$c-dark};
+  --menu-active-color: #{$c-purple};
+}
+
+.theme-purple {
+  --menu-base-color: #{$c-purple};
+  --menu-active-color: #{$c-dark};
+}
+
+.theme-blue {
+  --menu-base-color: #{$c-blue};
+  --menu-active-color: #{$c-light-blue};
+}
+
+.theme-light-blue {
+  --menu-base-color: #{$c-light-blue};
+  --menu-active-color: #{$c-blue};
+}

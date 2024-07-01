@@ -272,12 +272,12 @@
 
     &:hover,
     &:focus {
-      color: $c-purple;
+      color: var(--menu-active-color);
       outline: none;
 
       &::after {
         opacity: 1;
-        background-color: $c-purple;
+        background-color: var(--menu-active-color);
         transform: scaleX(100%);
         transform-origin: left;
       }
