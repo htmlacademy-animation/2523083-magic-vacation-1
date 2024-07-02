@@ -5,6 +5,26 @@ export default () => {
   let sliderContainer = document.getElementById(`story`);
   sliderContainer.style.backgroundImage = `url("img/slide1.jpg"), linear-gradient(180deg, rgba(83, 65, 118, 0) 0%, #523E75 16.85%)`;
 
+  const THEMES = [
+    'theme-purple', 'theme-purple',
+    'theme-blue', 'theme-blue',
+    'theme-light-blue', 'theme-light-blue',
+    'theme-dark-purple', 'theme-dark-purple'
+  ];
+
+  const addThemeClass = function () {
+    const theme = THEMES[storySlider.activeIndex];
+    document.body.classList.add(theme);
+  }
+
+  const removeThemeClass = function () {
+    [...document.body.classList].forEach(item => {
+      if (item.startsWith('theme-')) {
+        document.body.classList.remove(item);
+      }
+    });
+  }
+
   const setSlider = function () {
     if (((window.innerWidth / window.innerHeight) < 1) || window.innerWidth < 769) {
       storySlider = new Swiper(`.js-slider`, {
@@ -69,6 +89,21 @@ export default () => {
         observeParents: true
       });
     }
+
+    addThemeClass();
+
+    storySlider.on('slideChange', function () {
+      removeThemeClass();
+      addThemeClass();
+    });
+  
+    document.body.addEventListener('screenChanged', function (event) {
+      if (event.detail.screenName === 'story') {
+        addThemeClass();
+      } else {
+        removeThemeClass();
+      }
+    });
   };
 
   window.addEventListener(`resize`, function () {

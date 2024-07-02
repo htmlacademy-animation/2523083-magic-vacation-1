@@ -59,6 +59,7 @@
     &.screen__footer--full {
       width: 100%;
       height: 18rem;
+      background-color: unset;
     }
   }
 
@@ -72,12 +73,88 @@
       height: 16rem;
     }
   }
+
+  @media (max-width: $tablet) {
+    transform: translateY(2.8rem);
+
+    &.screen__footer--full {
+      &:before {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        display: block;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color: $c-light;
+        z-index: -1;
+        border-radius: 0 3.6rem 0 0;
+
+        animation-name: zoomIn;
+        animation-duration: 0.3s;
+        transform-origin: left bottom;
+      }
+
+      .screen__footer-wrapper {
+        animation: fadeIn;
+        animation-duration: 0.3s;
+        animation-delay: 0.3s;
+        animation-fill-mode: forwards;
+      }
+    }
+
+    &.screen__footer--before-hide {
+      &:before {
+        animation-name: zoomOut;
+        animation-delay: 0.3s;
+        animation-fill-mode: forwards;
+      }
+
+      .screen__footer-wrapper {
+        animation: fadeOut;
+        animation-duration: 0.3s;
+        animation-fill-mode: forwards;
+      }
+    }
+  }
 }
 
 .page-loaded {
+  .active {
+    .screen__footer {
+      transform: translateY(0);
+      transition: transform 0.3s $header-footer-easing;
+    }
+  }
+}
+
+.page-change-2-3 {
   .screen__footer {
     transform: translateY(0);
-    transition: transform 0.3s $header-footer-easing;
+    .screen__footer-note {
+      animation-name: fadeOut;
+      animation-duration: 0.5s;
+    }
+  }
+
+  .disclaimer ul {
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+  }
+}
+
+.page-change-3-2 {
+  .screen__footer {
+    transform: translateY(0);
+    .screen__footer-note {
+      animation-name: fadeIn;
+      animation-duration: 0.5s;
+    }
+  }
+
+  .disclaimer ul {
+    animation-name: fadeOut;
+    animation-duration: 0.5s;
   }
 }
 
@@ -86,18 +163,10 @@
 
   @media (max-width: $tablet) and (orientation: portrait) {
     opacity: 0;
-
-    .screen__footer--full & {
-      opacity: 1;
-    }
   }
 
   @media (max-width: $mobile) and (orientation: landscape) {
     opacity: 0;
-
-    .screen__footer--full & {
-      opacity: 1;
-    }
   }
 }
 

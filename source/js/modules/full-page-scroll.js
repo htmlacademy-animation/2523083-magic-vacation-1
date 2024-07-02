@@ -59,13 +59,18 @@ export default class FullPageScroll {
   }
 
   changeVisibilityDisplay() {
-    let applyDelay = 0;
+    let applyDelay = 500;
+    let changeClass = '';
+
     if (this.checkBackgroundAnimateNeed()) {
       this.backgroundScreenElement.classList.add('active');
-      applyDelay = 500;
     } else if (!this.screenNeedBackground(this.activeScreen)) {
       this.backgroundScreenElement.classList.remove('active');
     }
+
+    changeClass = `page-change-${this.prevScreen}-${this.activeScreen}`;
+    document.body.classList.add(changeClass);
+
     setTimeout(() => {
       this.screenElements.forEach((screen) => {
         screen.classList.add(`screen--hidden`);
@@ -76,6 +81,10 @@ export default class FullPageScroll {
         this.screenElements[this.activeScreen].classList.add(`active`);
       }, 100);
     }, applyDelay);
+    
+    setTimeout(() => {
+      document.body.classList.remove(changeClass);
+    }, 1000);
   }
 
   screenNeedBackground(screenIndex) {
